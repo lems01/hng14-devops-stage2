@@ -21,7 +21,7 @@ jobs:
       - name: Install lint tools
         run: |
           pip install flake8
-          npm install -g eslint
+          npm install -g eslint@8
           wget -O hadolint https://github.com/hadolint/hadolint/releases/latest/download/hadolint-Linux-x86_64
           chmod +x hadolint
 
