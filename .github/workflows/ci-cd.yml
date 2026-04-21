@@ -118,31 +118,32 @@ jobs:
     needs: build
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
       - name: Install Trivy
         run: |
-          sudo apt-get update
-          sudo apt-get install -y wget apt-transport-https gnupg lsb-release
-          wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
-          echo "deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main" | sudo tee -a /etc/apt/sources.list.d/trivy.list
-          sudo apt-get update
-          sudo apt-get install -y trivy
+          wget https://github.com/aquasecurity/trivy/releases/latest/download/trivy_0.50.1_Linux-64bit.deb
+          sudo dpkg -i trivy_*.deb
 
-      - name: Scan API image (SARIF)
+      - name: Rebuild images
+        run: |
+          docker build -t api:latest api
+          docker build -t worker:latest worker
+          docker build -t frontend:latest frontend
+
+      - name: Scan API
         run: |
           trivy image --format sarif \
-            -o trivy-api.sarif \
+            -o api.sarif \
             --severity CRITICAL \
             --exit-code 1 \
-            $REGISTRY/api:latest
+            api:latest
 
-      - name: Upload SARIF report
+      - name: Upload API SARIF
         uses: github/codeql-action/upload-sarif@v3
         with:
-          sarif_file: trivy-api.sarif
-
+          sarif_file: api.sarif
+          
 # ---------------- INTEGRATION ----------------
   integration:
     runs-on: ubuntu-latest
