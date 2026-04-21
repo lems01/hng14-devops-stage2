@@ -128,9 +128,9 @@ jobs:
 
       - name: Scan images
         run: |
-          trivy image --severity CRITICAL --exit-code 1 localhost:5000/api:latest
-          trivy image --severity CRITICAL --exit-code 1 localhost:5000/worker:latest
-          trivy image --severity CRITICAL --exit-code 1 localhost:5000/frontend:latest
+          trivy image --severity CRITICAL --exit-code 1 api:latest
+          trivy image --severity CRITICAL --exit-code 1 worker:latest
+          trivy image --severity CRITICAL --exit-code 1 frontend:latest
 
 # ---------------- INTEGRATION TEST ----------------
   integration:
