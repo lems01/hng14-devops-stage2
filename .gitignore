@@ -1,0 +1,94 @@
+# =========================
+
+# 🔐 Environment & Secrets
+
+# =========================
+
+.env
+.env.*
+*.env
+.env.local
+
+# =========================
+
+# 🐍 Python
+
+# =========================
+
+**pycache**/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments
+
+venv/
+.env/
+ENV/
+env/
+
+# Pytest / coverage
+
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+
+# =========================
+
+# 🟢 Node.js
+
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+
+# =========================
+
+# 🐳 Docker
+
+# =========================
+
+*.log
+docker-compose.override.yml
+
+# =========================
+
+# 🧪 Testing / Logs
+
+# =========================
+
+*.log
+logs/
+*.sqlite3
+
+# =========================
+
+# 🖥️ OS / Editor
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# VS Code
+
+.vscode/
+
+# JetBrains
+
+.idea/
+
+# =========================
+
+# 🗂️ Misc
+
+# =========================
+
+*.swp
+*.swo
+*~
