@@ -110,6 +110,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+
+      - name: Build images again
+        run: |
+          docker build -t api:latest api
+          docker build -t worker:latest worker
+          docker build -t frontend:latest frontend
       
       - name: Install Trivy
         run: |
