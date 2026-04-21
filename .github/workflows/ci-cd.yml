@@ -179,12 +179,18 @@ jobs:
 
       - name: Rolling update simulation
         run: |
+          API_CONTAINER=$(docker compose ps -q api)
+
           for i in {1..12}; do
-            STATUS=$(docker inspect --format='{{.State.Health.Status}}' $(docker ps -q | head -n1))
+            STATUS=$(docker inspect --format='{{.State.Health.Status}}' $API_CONTAINER 2>/dev/null || echo "starting")
+
+            echo "Health status: $STATUS"
+
             if [ "$STATUS" = "healthy" ]; then
-              echo "New container healthy"
+              echo "API is healthy"
               exit 0
             fi
+
             sleep 5
           done
 
