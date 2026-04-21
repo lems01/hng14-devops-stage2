@@ -15,7 +15,10 @@ RUN addgroup -S appgroup && adduser -S appuser -G appgroup
 
 WORKDIR /app
 
-COPY --from=builder /app /app
+# Copy only necessary files
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/app.js ./app.js
+COPY --from=builder /app/views ./views
 
 USER appuser
 
